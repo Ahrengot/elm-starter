@@ -1,5 +1,5 @@
 # Elm project starter
-Basic starter with live-reloading and Postcss
+Basic starter with hot module replacement and Postcss
 
 ## Get started
 1. `yarn install && npm run dev`

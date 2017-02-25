@@ -1,52 +1,60 @@
 var path = require("path");
-
 var webpack = require("webpack");
 var HtmlWebpackPlugin = require('html-webpack-plugin');
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
   devtool: "source-map",
-  entry: {
-    'app': './src/app.js'
-  },
+
+  context: path.resolve(__dirname, './src'),
+  entry: './app.js',
+
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].js'
   },
+
   module: {
     loaders: [
       {
-        test: /\.elm$/,
-        exclude: [/node_modules/, /elm-stuff/],
+        test: /\.js?$/,
+        exclude: [/node_modules/],
         use: {
-          loader: 'elm-webpack-loader',
-          query: {
-            // cwd: path.resolve(__dirname, 'src')
-          }
+          loader: 'babel-loader',
+          options: {
+            presets: ['es2015', 'stage-2']
+          },
         }
       },
       {
+        test: /\.elm$/,
+        exclude: [/elm-stuff/, /node_modules/],
+        use: [
+          'elm-hot-loader',
+          'elm-webpack-loader?debug'
+        ]
+      },
+      {
         test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          use: [
-            'css-loader',
-            'postcss-loader',
-          ]
-        })
+        use: [
+          'style-loader',
+          'css-loader',
+          'postcss-loader',
+        ]
       }
     ],
+
     noParse: /\.elm$/
   },
+
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/index.html',
-      title: 'Elm App',
+      template: './index.html',
       hash: true,
-    }),
-    new ExtractTextPlugin( 'main.css' )
+    })
   ],
+
   devServer: {
-    inline: true,
     stats: 'errors-only'
   }
+
 };

@@ -1,9 +1,10 @@
 {
     "version": "1.0.0",
-    "summary": "Starter-project using Webpack and PostCSS",
-    "repository": "https://github.com/Ahrengot/elm-starter.git",
+    "summary": "helpful summary of your project, less than 80 characters",
+    "repository": "https://github.com/user/project.git",
     "license": "BSD3",
     "source-directories": [
+        ".",
         "./src"
     ],
     "exposed-modules": [],

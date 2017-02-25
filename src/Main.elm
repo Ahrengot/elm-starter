@@ -1,9 +1,25 @@
-module Main exposing (..)
+port module Main exposing (..)
 
-import Html exposing (..)
-import Html.Attributes exposing (..)
+import Html
+import Time
+import View
+import Model
+import Msg exposing (..)
+import Update
 
 
-main : Html msg
+main : Program Msg.Flags Model.Model Msg
 main =
-    h1 [ class "title" ] [ text "Hellooo from Elm :)" ]
+    Html.programWithFlags
+        { init = Model.initialState
+        , view = View.app
+        , update = Update.update
+        , subscriptions = subscriptions
+        }
+
+
+subscriptions : Model.Model -> Sub Msg
+subscriptions model =
+    Sub.batch
+        [ Time.every Time.second <| always Tick
+        ]

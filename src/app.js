@@ -1,6 +1,13 @@
-// elm-css
-import './css/main.css';
+import "./css/main.css"
 
-// inject elm
-var Elm = require('./Main.elm');
-Elm.Main.embed( document.getElementById('app') );
+import Elm from "./Main.elm"
+
+var elm = Elm.Main.fullscreen({
+  title: "Elm Starter",
+  repoLink: "https://github.com/Ahrengot/elm-starter"
+});
+
+//interop
+elm.ports.alert.subscribe(function(message) {
+  alert(message);
+});
