@@ -3,10 +3,11 @@ var webpack = require("webpack");
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  devtool: "source-map",
-
   context: path.resolve(__dirname, './src'),
-  entry: './app.js',
+
+  entry: [
+    './app.js',
+  ],
 
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -16,21 +17,15 @@ module.exports = {
   module: {
     loaders: [
       {
-        test: /\.js?$/,
+        test: /\.js$/,
         exclude: [/node_modules/],
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['es2015', 'stage-2']
-          },
-        }
+        use: ['babel-loader']
       },
       {
         test: /\.elm$/,
         exclude: [/elm-stuff/, /node_modules/],
         use: [
-          'elm-hot-loader',
-          'elm-webpack-loader?debug'
+          'elm-webpack-loader'
         ]
       },
       {
@@ -42,7 +37,6 @@ module.exports = {
         ]
       }
     ],
-
     noParse: /\.elm$/
   },
 
@@ -51,10 +45,6 @@ module.exports = {
       template: './index.html',
       hash: true,
     })
-  ],
-
-  devServer: {
-    stats: 'errors-only'
-  }
+  ]
 
 };
