@@ -1,7 +1,7 @@
 const merge = require('webpack-merge');
 const baseConf = require('./webpack.common.js');
 
-const conf = merge.strategy({
+module.exports = merge.strategy({
   'module.loaders': 'replace'
 })(baseConf, {
   devtool: "source-map",
@@ -42,7 +42,3 @@ const conf = merge.strategy({
     stats: 'errors-only'
   }
 });
-
-console.log("Combined conf: ", conf)
-
-module.exports = conf;
